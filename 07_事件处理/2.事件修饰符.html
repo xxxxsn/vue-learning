@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<style>
+    * {
+        margin: 20px;
+    }
+    
+    .div1 {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+    }
+    
+    ul {
+        width: 100px;
+        height: 200px;
+        background-color: aquamarine;
+        overflow: auto;
+    }
+    
+    ul li {
+        height: 100px;
+        background-color: orange;
+    }
+</style>
+
+<body>
+    <!-- 
+
+Vue中的事件修饰符:
+    1.prevent: 阻止默认事件(常用) ;
+    2.stop: 阻止事件冒泡(常用);
+    3.once:事件只触发一次(常用);
+    4.capture:使用事件的捕获模式:
+    5.self:只有event.target是当前操作的元素是才触发事件;
+    6.passive:事件的默认行为立即执行,无需等待事件回调执行完毕;
+
+     -->
+
+    <div id="app">
+        <!-- 阻止默认事件 (常用)-->
+        <a href="http://www.baidu.com" @click.prevent="show">点击弹出信息</a>
+
+        <!-- 阻止事件冒泡 -(常用)->
+        <div class="div1" @click="show2">
+            <button @click.stop="show2">点击我提示信息1</button>
+        </div>
+
+
+        <!-- 默认阻止事件冒泡(常用) stopPropagation() -->
+        <!--    <div class="div1" @click="show3">
+            <button @click="show3">点击我提示信息2</button>
+        </div> -->
+
+
+        <!-- 事件只触发一次(常用); -->
+        <button @click.once="show2">事件只触发一次</button>
+
+
+
+        <!-- 使用事件的捕获模式: -->
+        <div @click.capture="div1" style="width: 200px;height: 200px;background-color: red;">div1
+            <div @click="div2" style="width: 100px;height: 100px;background-color: pink;;">
+                div2
+            </div>
+        </div>
+
+        <!-- self:只有event.target是当前操作的元素是才触发事件; -->
+        <div class="div1" @click.self="show4">
+            <button @click="show4">点击我提示信息3</button>
+        </div>
+
+        <!-- passive:事件的默认行为立即执行,无需等待事件回调执行完毕;
+              scroll 滚动条事件
+              wheel  滚轮事件
+         -->
+        <ul @wheel.passive="demo">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+
+        </ul>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                name: "百度"
+            },
+            methods: {
+                div1() {
+                    console.log(1)
+                },
+                div2() {
+                    console.log(2)
+                },
+                show() {
+                    alert("hello")
+                },
+                show2() {
+                    alert("你好1")
+                },
+                show4(e) {
+                    console.log(e.target)
+                },
+                demo(e) {
+
+                    for (let i = 0; i < 10000; i++) {
+                        console.log("#")
+                    }
+                    console.log("结束了")
+                }
+                /*    show3(e) {
+                       //默认的事件阻止冒泡
+                       e.stopPropagation()
+                       alert("你好2")
+                   } */
+            }
+        })
+    </script>
+
+</body>
+
+</html>

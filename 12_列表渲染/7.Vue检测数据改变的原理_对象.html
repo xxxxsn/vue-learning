@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>7.Vue检测数据改变的原理_对象</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <h2>学校姓名：{{school.name}} </h2>
+        <h2>学校地址：{{school.address}}</h2>
+        <h2 v-if="school.top">排行：{{school.top}}</h2>
+        <h3>学生</h3>
+        <button @click="addTop">给学校增加一个排行</button>
+        <ul>
+            <li :key="index" v-for="(s,index) in school.students">
+                {{s.name}}----{{s.age}}
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: " #app ",
+            data: {
+                school: {
+                    name: "北京大学",
+                    address: "首都",
+                    students: [{
+                        name: "张三",
+                        age: 18
+                    }, {
+                        name: "李四",
+                        age: 28
+                    }]
+                }
+
+            },
+            methods: {
+                addTop() {
+                    //增加一个属性  响应式的
+                    vm.$set(this.school, "top", 2)
+                        //注意：不能给vm实例对象(data)加属性
+                    vm.$set(this, "top", 2)
+
+                    //增加一个属性  响应式的
+                    // Vue.set(this.school, "top", 2)
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

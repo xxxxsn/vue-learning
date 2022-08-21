@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.监视属性_简写方式 </title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+
+    <div id="app">
+        <h2>今天天气{{info}}</h2>
+        <button @click="isHot = !isHot">切换天气</button>
+
+
+    </div>
+
+
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                isHot: true,
+                numbers: {
+                    a: 1,
+                    b: 2
+                }
+
+            },
+            computed: {
+                info() {
+                    return this.isHot ? "炎热" : "凉爽"
+                }
+            },
+            watch: {
+                // 完整写法
+                /*  isHot: {
+                     //初始化的时候立即调用
+                     immediate: true, //默认是false
+                     deep: true, //深度监视默认false
+                     //handler什么时候被调用 ？当isHot被改变的时候被调用
+                     handler(newValue, Oldvalue) {
+                         console.log("isHot被改了", newValue, Oldvalue)
+                     }
+                 }, */
+                //简写方式
+                isHot(newValue, oldValue) {
+                    console.log("isHot被改了", newValue, oldValue)
+                },
+            }
+
+        })
+
+
+
+        /*      vm.$watch("isHot", function(newValue, oldValue) {
+                 console.log("isHot被改了", newValue, oldValue)
+             }) */
+    </script>
+
+</body>
+
+</html>

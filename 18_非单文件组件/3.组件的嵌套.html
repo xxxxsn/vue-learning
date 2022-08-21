@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.组件的嵌套</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+
+
+
+    <div id="app">
+
+    </div>
+
+
+    <script>
+        Vue.config.productionTip = false
+
+
+        // hello组件
+        let hello = Vue.extend({
+            template: `
+                <div>
+                    <h1>{{msg}}</h1>
+                </div>
+             
+            `,
+            data() {
+                return {
+                    msg: "HelloWrold"
+                }
+            },
+            methods: {
+                sayHello() {
+                    alert("你好我叫:" + this.stuName)
+                }
+            },
+        })
+
+        //  student组件
+        let student = Vue.extend({
+            template: `
+                <div>
+                    <h4>学生名称：{{stuName}}</h4>
+                    <h4>学生年龄：{{stuAge}}</h4>
+                    <button @click="sayHello">打招呼</button>
+                </div>
+             
+            `,
+            data() {
+                return {
+                    stuName: "zhangsan",
+                    stuAge: 18,
+                }
+            },
+            methods: {
+                sayHello() {
+                    alert("你好我叫:" + this.stuName)
+                }
+            },
+        })
+
+        //school组件
+        let school = Vue.extend({
+            template: `
+                   <div>
+                        <h3>学校名称：{{schoolName}}</h3>
+                        <h3>学校地址：{{schoolAddress}}</h3>
+                        <student/>
+                        <hr/>
+                </div>
+              
+            `,
+            data() {
+                return {
+                    schoolName: "北京大学",
+                    schoolAddress: "首都",
+                }
+            },
+            components: {
+                student
+            }
+        })
+
+        //  app组件
+        let app = Vue.extend({
+            template: `
+            <div>
+                <hello></hello>
+                <school></school>
+            </div>
+
+            `,
+            components: {
+                school,
+                hello
+            }
+        })
+
+
+        new Vue({
+            template: '<app></app>',
+            el: "#app",
+            components: {
+                app
+
+            }
+        })
+    </script>
+</body>
+
+</html>

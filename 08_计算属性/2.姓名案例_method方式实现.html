@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.姓名案例_method方式实现.</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+
+    <div id="app">
+
+        <label>姓：</label><input type="text" v-model="firstName"><br>
+        <label>名：</label><input type="text" v-model="lastName"><br>
+        <!-- 注意：（）方法括号必须加 -->
+        <span>全名：{{fullName()}}</span><br>
+        <span>全名：{{fullName()}}</span><br>
+
+
+    </div>
+</body>
+<script>
+    new Vue({
+
+        el: "#app",
+        data: {
+            firstName: "",
+            lastName: ""
+        },
+        methods: {
+            // 只要data数据改变方法就会调用
+            fullName() {
+                console.log("@")
+                return this.firstName + "---" + this.lastName
+            }
+        }
+    })
+</script>
+
+</html>

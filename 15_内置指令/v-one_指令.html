@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+    <!-- v-onc画指令:
+        1.v-once所在节点在初次动态宣染后,就视为静态内容了。
+        2.以后数据的改变不会引起v-once所在结构的更新,可以用于优化性能。
+     -->
+
+
+
+    <div id="app">
+        <!-- 只加载一次 -->
+        <h3 v-once>初始化num:{{num}}</h3>
+        <h3>当前num:{{num}}</h3>
+
+        <button @click="num+=1">点击num++</button>
+
+
+
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                num: 1
+            }
+        })
+    </script>
+</body>
+
+</html>

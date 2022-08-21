@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="js/vue.js"></script>
+    <script src="../js/vue.js"></script>
 </head>
 
 <body>
@@ -29,8 +29,8 @@
         <hr>
 
         <h1>指令语法 v-bind</h1>
-        <h3><a :href="url">点击去{{website}}</a></h3>
-        <h3><a v-bind:href="url">点击去{{website}}</a></h3>
+        <h3><a :href="url" :hello="name">点击去{{website}}</a></h3>
+        <h3><a v-bind:href="url" :time="Date.now()">点击去{{website}}</a></h3>
         <hr>
     </div>
 </body>

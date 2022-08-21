@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+    <!-- 
+        需求1:定义一个v-big指令,和v-text功能类似,但会把绑定的数值放大10倍。
+        需求2:定义一个v-fbind指令,和v-bind功能类似,但可以让其所绑定的input元素默认获取焦点。
+ 
+     -->
+
+
+    <!-- 
+
+
+            自定义指令总结:
+            一、定义语法:
+            (1).局部指令:new Vue({
+                            directives:(指令名:配置对象)
+                        }
+                         或 
+                          new Vue({
+                            directives:(){}
+                        }
+            (2),全局指令:
+                     Vue.directive(指令名,配置对象)  或 
+                        Vue.directive(指令名,回调函数):
+             二、配置对象中常用的3个回调:
+                        (1).bind:指令与元素成功绑定时调用。
+                        (2).inserted:指令所在元素被插入页面时调用。
+                        (3).update:指令所在模板结构被重新解析时调用。
+            三、备注:
+            1,指令定义时不加v-,但使用时要加v
+            2.指令名如果是多个单词,要使用kebab-case命名方式,不要用camelCase命名.
+      -->
+
+    <div id="app">
+
+        <h1>{{name}}</h1>
+        <h2>当前的num是: <span v-text="num"></span></h2>
+        <h2>放大10倍的num是: <span v-big="num"></span></h2>
+        <!-- 多个单词-连接 -->
+        <h2>放大20倍的num是: <span v-big-num="num"></span></h2>
+        <button @click="num+=1">点击num++</button>
+
+
+        <hr>
+
+
+        <input type="text" v-focus:value="num">
+
+        <hr>
+        <!-- 全局指令 -->
+        <h2 v-red="num"></h2>
+
+        <h2 v-skyblue="num"></h2>
+
+    </div>
+    <script>
+        // 全局完整写法
+        Vue.directive("red", {
+                //指令与元素成功绑定 （一上来）
+                bind(element, binding) {
+                    element.innerText = binding.value
+                },
+                //指令所在的元素被插入页面时
+                inserted(element, binding) {
+                    console.log(element)
+                    element.style.color = "red"
+                },
+                //指令所在的模板被重新解析时
+                update(element, binding) {
+                    element.innerText = binding.value
+                }
+            })
+            // 全局简写
+        Vue.directive("skyblue", function(element, binding) {
+            element.innerText = binding.value * 10
+            element.style.color = "skyblue"
+        })
+
+        //-----------------------------------------------------------------------
+        new Vue({
+            el: "#app",
+            data: {
+                name: "你好",
+                num: 1
+            },
+            directives: {
+                //big函数合适被顶用?1.指令和元素成功绑定（一上来）2.指令所在的，模板重新解析
+                big(element, binding) {
+                    // console.log(element, binding)
+                    element.innerText = binding.value * 10
+                },
+                "big-num" (element, binding) {
+                    // console.log(element, binding)
+                    element.innerText = binding.value * 20
+                },
+                focus: {
+                    //指令与元素成功绑定 （一上来）
+                    bind(element, binding) {
+                        console.log(this) //this对象时windows
+                        element.value = binding.value
+                    },
+                    //指令所在的元素被插入页面时
+                    inserted(element, binding) {
+                        console.log("inserted..")
+                        element.focus()
+                    },
+                    //指令所在的模板被重新解析时
+                    update(element, binding) {
+                        console.log("update..")
+                        element.value = binding.value
+                    }
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

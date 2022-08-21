@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>9.模拟一个数据检测的原理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+
+    <script>
+        let data = {
+            name: "zhangsan",
+            address: "beijing"
+        }
+
+        const obs = new Observer(data);
+
+        var vm = {}
+        vm._data = obs;
+
+        function Observer(obj) {
+            //汇总对象所有 的属性形成数组
+            const keys = Object.keys(obj);
+            //遍历
+            keys.forEach((k) => {
+                Object.defineProperty(this, k, {
+                    get() {
+                        return obj[k]
+                    },
+                    set(val) {
+                        obj[keky] = val;
+                    }
+                })
+            })
+
+
+        }
+    </script>
+</body>
+
+</html>

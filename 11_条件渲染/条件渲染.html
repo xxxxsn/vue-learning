@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+
+    <!-- 
+
+        条件渲染:1.v-if写法:
+            (1).v-if="表达式"
+            (2).v-else-if="表达式"
+            (3).v-else="表达式"适用于:切换频率较低的场景。
+            特点:不展示的DOM元素直接被移除。
+        注意: v-if可以和:v-else-if, v-else一起使用,但要求结构不能被“打断”。
+        2.v-show写法: v-show="表达式"适用于:切换频率较高的场景。
+            特点:不展示的DOM元素未被移除,仅仅是使用样式隐藏掉
+        3.备注:使用v-if的时,元素可能无法获取到,而使用v-show一定可以获取到。
+
+     -->
+    <div id="app">
+        <h2 v-show="showFlag">使用v-show</h2>
+        <button @click="showFlag=!showFlag">{{showFlag?"隐藏":"显示"}}</button>
+
+        <hr>
+        <h2 v-if="ifFlag">使用v-if</h2>
+        <button @click="ifFlag=!ifFlag">{{ifFlag?"隐藏":"显示"}}</button>
+
+        <hr>
+
+        <div v-if="n==1">1</div>
+        <div v-else-if="n==2">2</div>
+        <div v-else-if="n==3">3</div>
+        <div v-else-if="n==4">4</div>
+        <button @click="n++">点我</button>
+        <hr>
+
+        <!-- template只能用v-if -->
+        <template v-if="m==1">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+         </template>
+        <button @click="m++">点我</button>
+
+
+
+        <hr>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+
+                showFlag: true,
+                ifFlag: true,
+                n: 0,
+                m: 0
+
+            }
+        })
+    </script>
+</body>
+
+</html>

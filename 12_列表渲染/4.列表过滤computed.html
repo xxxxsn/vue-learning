@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>4.列表过滤computed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <h2>人员列表</h2>
+        <input type="text" v-model="keyWord">
+        <ul>
+            <li ::key="p.id" v-for="p in filerPersons">
+                {{p.id}}----{{p.name}}----{{p.age}}
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: " #app ",
+            data: {
+                persons: [{
+                    id: 001,
+                    name: "马冬梅",
+                    age: 17
+                }, {
+                    id: 002,
+                    name: "周冬雨",
+                    age: 27
+                }, {
+                    id: 003,
+                    name: "周杰伦",
+                    age: 37
+                }, {
+                    id: 004,
+                    name: "周大梅",
+                    age: 37
+                }, ],
+
+                keyWord: ""
+            },
+            computed: {
+                filerPersons() {
+                    return this.persons.filter((item) => {
+                        return item.name.indexOf(this.keyWord) != -1
+                    })
+
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

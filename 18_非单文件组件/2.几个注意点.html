@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.几个注意点</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+         几个注意点:
+                1,关于组件名:
+                    一个单词组成:
+                            第一种写法(首字母小写): school
+                            第二种写法(首字母大写):  School
+                    多个单词组成:
+                            第一种写法(kebab-case命名): my-school
+                            第二种写法(CamelCase命名): MySchool (需要Vue脚手架支持)
+
+                备注:
+                     (1).组件名尽可能回避HTML中已有的元素名称,例如:h2、H2都不行。
+                    (2),可以使用name配置项指定组件在开发者工具中呈现的名字。 
+                    
+                    
+                2.关于组件标签:
+                        第一种写法: <school></school>
+                        第二种写法: <school/>
+                  备注: 不用使用脚手架时,<school/>会导致后续组件不能渲染。
+
+
+          3.一个简写方式:const school = Vue.extend (options)可写为: const school = options
+
+     -->
+
+
+
+    <div id="app">
+
+        <!-- 3、组件使用-->
+        <my-student></my-student>
+        <hr>
+        <student></student>
+
+        <hr>
+        <student/>
+
+
+
+
+    </div>
+
+
+    <script>
+        Vue.config.productionTip = false
+
+
+
+
+        //1、组件创建  Vue.extend()可以不写 但是vue默认会加 
+        let student = Vue.extend({
+            name: "xuesheng", //Vue插件显示的名字
+            template: `
+                <div>
+                    <h3>学生名称：{{stuName}}</h3>
+                    <h3>学生年龄：{{stuAge}}</h3>
+                    <button @click="sayHello">打招呼</button>
+               </div>
+            `,
+            data() {
+                return {
+                    stuName: "zhangsan",
+                    stuAge: 18,
+                }
+            },
+            methods: {
+                sayHello() {
+                    alert("你好我叫:" + this.stuName)
+                }
+            },
+        })
+
+
+
+        new Vue({
+
+            el: "#app",
+            //2、组件注册
+            components: {
+                "my-student": student,
+                student: student
+            }
+        })
+    </script>
+</body>
+
+</html>

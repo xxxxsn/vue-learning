@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>8.更新对象时的一个问题</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <button @click="updateMei">修改马冬梅的信息</button>
+        <ul>
+            <li :key="p.id" v-for="p in persons">
+                {{p.id}}----{{p.name}}----{{p.age}}
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: " #app ",
+            data: {
+                persons: [{
+                    id: 001,
+                    name: "马冬梅",
+                    age: 37
+                }, {
+                    id: 002,
+                    name: "周冬雨",
+                    age: 24
+                }, {
+                    id: 003,
+                    name: "周杰伦",
+                    age: 17
+                }, {
+                    id: 004,
+                    name: "周大梅",
+                    age: 27
+                }, ],
+
+            },
+            methods: {
+                updateMei() {
+
+                    // this.persons[0].name = "马老师";//生效
+                    // this.persons[0].age = "67";//生效
+
+
+                    //不生效
+                    // this.persons[0] = {
+                    //     id: 001,
+                    //     name: "马老师",
+                    //     age: 77
+                    // }
+
+
+                    // 官网api:https://v2.cn.vuejs.org/v2/guide/list.html#%E5%8F%98%E6%9B%B4%E6%96%B9%E6%B3%95
+                    // this.persons.splice(0, 1, {
+                    //     id: 001,
+                    //     name: "马老师",
+                    //     age: 77
+                    // })
+
+                    //或者
+                    vm.$set(this.persons, 0, {
+                        id: 001,
+                        name: "马老师",
+                        age: 77
+                    })
+
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

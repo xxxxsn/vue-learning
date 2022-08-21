@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .basic {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+        }
+        
+        .pink {
+            background-color: pink;
+        }
+        
+        .skyblue {
+            background-color: skyblue;
+        }
+        
+        .purple {
+            background-color: purple;
+        }
+        
+        .radius50 {
+            border-radius: 50%;
+            text-align: center;
+        }
+        
+        .wh500 {
+            width: 500px;
+            height: 500px;
+        }
+        
+        .wh100 {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- 
+            绑定样式:
+            1. class样式
+                写法:class="xxx" xxx可以是字符串、对象、数组。
+                    字符串写法适用于:类名不确定,要动态获取。
+                    对象写法适用于:要绑定多个样式,个数不确定,名字也不确定。
+                    数组写法适用于:要绑定多个样式,个数确定,名字也确定,但不确定用不用。
+            2. style样式:
+                style="[fontSize: xxx]"其中xxx是动态值。
+                :style="[a,b]"其中a、b是样式对象。
+
+
+
+     -->
+    <div id="app">
+        <!-- 字符串写法 -->
+        <div :style="{fontSize:fontSize+'px'}">{{name}}</div>
+
+        <button @click="fontSize+=5">变大</button>
+        <button @click="fontSize-=5">变小</button>
+
+        <hr>
+        <!-- 对象写法 -->
+        <div :style="styleObj1">{{name}}</div>
+
+
+        <!-- 数组写法【很少用】 -->
+        <div :style="[styleObj1,styleObj2]">{{name}}</div>
+    </div>
+    <script>
+        new Vue({
+            el: " #app ",
+            data: {
+                name: "测试 ",
+                fontSize: 40,
+                styleObj1: {
+                    fontSize: "40px",
+                    color: "blue"
+                },
+                styleObj2: {
+                    width: "100px",
+                    height: "100px",
+                    border: "6px solid pink"
+                }
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
